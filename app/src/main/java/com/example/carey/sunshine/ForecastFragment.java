@@ -39,7 +39,6 @@ import java.util.List;
 public class ForecastFragment extends Fragment {
 
     public ArrayAdapter<String> mForecastAdapter;
-    public final static String EXTRA_FORECAST = "com.example.carey.sunshine.FORECAST";
 
     public ForecastFragment() {
     }
@@ -69,8 +68,7 @@ public class ForecastFragment extends Fragment {
             FetchWeatherTask weatherTask = new FetchWeatherTask();
             weatherTask.execute("60192");
         }
-
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 
     @Override
@@ -110,7 +108,7 @@ public class ForecastFragment extends Fragment {
 
                 String forecast = mForecastAdapter.getItem(position);
                 Intent intent = new Intent(getActivity(), DetailActivity.class)
-                        .putExtra(EXTRA_FORECAST, forecast);
+                        .putExtra(Intent.EXTRA_TEXT, forecast);
                 startActivity(intent);
             }
         });
