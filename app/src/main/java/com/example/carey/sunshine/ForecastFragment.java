@@ -210,12 +210,26 @@ public class ForecastFragment extends Fragment {
                 double high = temperatureObject.getDouble(OWM_MAX);
                 double low = temperatureObject.getDouble(OWM_MIN);
 
+                // Apply units conversion
+                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                String units = settings.getString(getString(R.string.pref_units_key), getString(R.string.pref_units_default));
+
+                // Convert to imperial if imperial units are selected
+                if(units.equals(getString(R.string.pref_units_imperial)))
+                {
+                    high = ((high * 9) / 5) + 32;
+                    low = ((low * 9) / 5) + 32;
+                }
+                else if(!units.equals(getString(R.string.pref_units_metric)))
+                {
+                    // units should either be metric or imperial
+                    Log.d(LOG_TAG, "Invalid units: " + units);
+                }
+
                 highAndLow = formatHighLows(high, low);
                 resultStrs[i] = day + " - " + description + " - " + highAndLow;
             }
-
             return resultStrs;
-
         }
 
         @Override
