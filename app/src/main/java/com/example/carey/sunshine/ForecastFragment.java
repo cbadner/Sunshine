@@ -215,6 +215,7 @@ public class ForecastFragment extends Fragment {
                 String units = settings.getString(getString(R.string.pref_units_key), getString(R.string.pref_units_default));
 
                 // Convert to imperial if imperial units are selected
+                assert units != null;
                 if(units.equals(getString(R.string.pref_units_imperial)))
                 {
                     high = ((high * 9) / 5) + 32;
